@@ -5,20 +5,27 @@ public class HeapSort {
 	private static int N;
 
 	/* Sort Function */
-	public static void sort(int arr[]) {
-		heapify(arr);
+	public static void sort(int arr[], boolean asc) {
+		heapify(arr, asc);
 		for (int i = N; i > 0; i--) {
 			swap(arr, 0, i);
 			N = N - 1;
-			maxheap(arr, 0);
+			if (asc)
+				maxheap(arr, 0);
+			else
+				minheap(arr, 0);
 		}
 	}
 
 	/* Function to build a heap */
-	public static void heapify(int arr[]) {
+	public static void heapify(int arr[], boolean asc) {
 		N = arr.length - 1;
-		for (int i = N / 2; i >= 0; i--)
-			maxheap(arr, i);
+		for (int i = N / 2; i >= 0; i--) {
+			if (asc)
+				maxheap(arr, i);
+			else
+				minheap(arr, i);
+		}
 	}
 
 	/* Function to swap largest element in heap */
@@ -34,6 +41,21 @@ public class HeapSort {
 		if (max != i) {
 			swap(arr, i, max);
 			maxheap(arr, max);
+		}
+	}
+
+	public static void minheap(int arr[], int i) {
+		int left = 2 * i;
+		int right = 2 * i + 1;
+		int min = i;
+		if (left <= N && arr[left] < arr[i])
+			min = left;
+		if (right <= N && arr[right] < arr[min])
+			min = right;
+
+		if (min != i) {
+			swap(arr, i, min);
+			minheap(arr, min);
 		}
 	}
 

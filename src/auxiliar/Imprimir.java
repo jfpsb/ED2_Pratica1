@@ -1,8 +1,7 @@
 package auxiliar;
 
 public class Imprimir {
-	public void ImprimirVetor(int[] vetor) {
-		System.out.print("Vetor resposta: ");
+	public static void ImprimirVetor(int[] vetor) {
 		for(int i = 0; i < vetor.length; i++) {
 			System.out.print(vetor[i] + " ");
 		}

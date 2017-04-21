@@ -6,28 +6,28 @@ public class MergeSort {
 
     private int number;
 
-    public void sort(int[] values) {
+    public void sort(int[] values, boolean asc) {
             this.numbers = values;
             number = values.length;
             this.helper = new int[number];
-            mergesort(0, number - 1);
+            mergesort(0, number - 1, asc);
     }
 
-    private void mergesort(int low, int high) {
+    private void mergesort(int low, int high, boolean asc) {
             // check if low is smaller than high, if not then the array is sorted
             if (low < high) {
                     // Get the index of the element which is in the middle
                     int middle = low + (high - low) / 2;
                     // Sort the left side of the array
-                    mergesort(low, middle);
+                    mergesort(low, middle, asc);
                     // Sort the right side of the array
-                    mergesort(middle + 1, high);
+                    mergesort(middle + 1, high, asc);
                     // Combine them both
-                    merge(low, middle, high);
+                    merge(low, middle, high, asc);
             }
     }
 
-    private void merge(int low, int middle, int high) {
+    private void merge(int low, int middle, int high, boolean asc) {
 
             // Copy both parts into the helper array
             for (int i = low; i <= high; i++) {
@@ -40,6 +40,7 @@ public class MergeSort {
             // Copy the smallest values from either the left or the right side back
             // to the original array
             while (i <= middle && j <= high) {
+            	if(asc) {
                     if (helper[i] <= helper[j]) {
                             numbers[k] = helper[i];
                             i++;
@@ -47,6 +48,15 @@ public class MergeSort {
                             numbers[k] = helper[j];
                             j++;
                     }
+            	} else {
+            		if (helper[i] >= helper[j]) {
+                        numbers[k] = helper[i];
+                        i++;
+                } else {
+                        numbers[k] = helper[j];
+                        j++;
+                }
+            	}
                     k++;
             }
             // Copy the rest of the left side of the array into the target array
