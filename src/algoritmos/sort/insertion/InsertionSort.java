@@ -1,32 +1,31 @@
 package algoritmos.sort.insertion;
 
+import algoritmos.dados.OrdenacaoDados;
+import auxiliar.Imprimir;
+
 public class InsertionSort {
 	private static long numeroComparacoes = 0;
 	private static long numeroAtribuicoes = 0;
 
-	public void ChamaInsertionSort(int[] vetor, char inicioOuFim, int porcentagem, char ordem) {
+	public void ChamaInsertionSort(int[] vetor, OrdenacaoDados ordenacao) {
+		int []vetorAOrdenar = new int[vetor.length];
+		
+		System.arraycopy(vetor, 0, vetorAOrdenar, 0, vetor.length);
+		
 		long tempoInicial = System.currentTimeMillis();
 
-		if (ordem == 'c') {
-			SortAsc(vetor);
+		if (ordenacao.getOrdem() == 'c') {
+			SortAsc(vetorAOrdenar);
 		} else {
-			SortDesc(vetor);
+			SortDesc(vetorAOrdenar);
 		}
 
 		long tempoFinal = System.currentTimeMillis() - tempoInicial;
+		
+		ordenacao.setNumeroAtribuicoes(numeroAtribuicoes);
+		ordenacao.setNumeroComparacoes(numeroComparacoes);
 
-		ImprimeDados(Long.valueOf(tempoFinal).doubleValue(), vetor, inicioOuFim, porcentagem, ordem);
-	}
-
-	private static void ImprimeDados(double tempoTotal, int vetor[], char inicioOuFim, int porcentagem, char ordem) {
-		System.out.println("Algoritmo executado: Insertion Sort");
-		System.out.println("Quantidade de elementos em vetor: " + vetor.length);
-		System.out.println("Ordenação " + ((ordem == 'c') ? "ascendente" : "descendente"));
-		System.out.println(
-				porcentagem + "% " + ((inicioOuFim == 'i') ? "iniciais" : "finais") + " do vetor já ordenados");
-		System.out.println("A ordenação durou um tempo total de: " + (tempoTotal / 1000) + " segundo(s)");
-		System.out.println("O número de comparações executadas foi: " + numeroComparacoes);
-		System.out.println("O número de atribuições foi: " + numeroAtribuicoes);
+		Imprimir.ImprimeResultado(Long.valueOf(tempoFinal).doubleValue(), vetorAOrdenar, ordenacao);
 	}
 
 	private static void SortAsc(int[] vetor) {

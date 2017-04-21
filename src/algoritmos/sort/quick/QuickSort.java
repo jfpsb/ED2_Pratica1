@@ -1,47 +1,81 @@
 package algoritmos.sort.quick;
 
+import algoritmos.dados.OrdenacaoDados;
+import auxiliar.Imprimir;
+
 public class QuickSort {
 	private int[] numbers;
 	private int number;
+	private static long numeroComparacoes = 0;
+	private static long numeroAtribuicoes = 0;
 
-	public void sort(int[] values, char pivo, boolean asc) {
+	public void chamaQuickSort(int[] vetor, OrdenacaoDados ordenacao) {
 		// check for empty or null array
-		if (values == null || values.length == 0) {
+		if (vetor == null || vetor.length == 0) {
 			return;
 		}
-		this.numbers = values;
-		number = values.length;
-		quicksort(0, number - 1, pivo, asc);
+
+		number = vetor.length;
+		this.numbers = new int[vetor.length];
+
+		System.arraycopy(vetor, 0, numbers, 0, vetor.length);
+
+		long tempoInicial = System.currentTimeMillis();
+
+		quicksort(0, number - 1, ordenacao);
+
+		long tempoFinal = System.currentTimeMillis() - tempoInicial;
+
+		ordenacao.setNumeroAtribuicoes(numeroAtribuicoes);
+		ordenacao.setNumeroComparacoes(numeroComparacoes);
+
+		Imprimir.ImprimeResultado(Long.valueOf(tempoFinal).doubleValue(), numbers, ordenacao);
 	}
 
-	private void quicksort(int low, int high, char pivo, boolean asc) {
+	private void quicksort(int low, int high, OrdenacaoDados ordenacao) {
 		int i = low, j = high, pivot;
+		
+		System.out.println("Ordenando vetor. Aguarde.");
 
-		if (pivo == 'P') {
+		if (ordenacao.getPivo() == 'p') {
 			pivot = numbers[low];
-		} else if (pivo == 'U') {
+			numeroComparacoes++;
+			numeroAtribuicoes++;
+		} else if (ordenacao.getPivo() == 'u') {
+			numeroComparacoes++;
+			numeroAtribuicoes++;
 			pivot = numbers[high];
 		} else {
 			pivot = numbers[low + (high - low) / 2];
+			numeroAtribuicoes++;
 		}
 
 		// Divide into two lists
 		while (i <= j) {
-			if (asc) {
+			if (ordenacao.getOrdem() == 'c') {
+				numeroComparacoes++;
 				while (numbers[i] < pivot) {
 					i++;
+					numeroComparacoes++;
+					numeroAtribuicoes++;
 				}
 
 				while (numbers[j] > pivot) {
 					j--;
+					numeroComparacoes++;
+					numeroAtribuicoes++;
 				}
 			} else {
 				while (numbers[i] > pivot) {
 					i++;
+					numeroComparacoes++;
+					numeroAtribuicoes++;
 				}
 
 				while (numbers[j] < pivot) {
 					j--;
+					numeroComparacoes++;
+					numeroAtribuicoes++;
 				}
 			}
 
@@ -51,21 +85,29 @@ public class QuickSort {
 			// values.
 			// As we are done we can increase i and j
 			if (i <= j) {
+				numeroComparacoes++;
 				exchange(i, j);
 				i++;
 				j--;
+				numeroAtribuicoes += 2;
 			}
 		}
 		// Recursion
-		if (low < j)
-			quicksort(low, j, pivo, asc);
-		if (i < high)
-			quicksort(i, high, pivo, asc);
+		if (low < j) {
+			numeroComparacoes++;
+			quicksort(low, j, ordenacao);
+		}
+		if (i < high) {
+			numeroComparacoes++;
+			quicksort(i, high, ordenacao);
+		}
 	}
 
 	private void exchange(int i, int j) {
 		int temp = numbers[i];
 		numbers[i] = numbers[j];
 		numbers[j] = temp;
+
+		numeroAtribuicoes += 3;
 	}
 }
