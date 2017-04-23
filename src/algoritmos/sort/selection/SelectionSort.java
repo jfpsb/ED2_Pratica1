@@ -8,6 +8,9 @@ public class SelectionSort {
 	private static long numeroAtribuicoes = 0;
 
 	public void chamaSelectionSort(int[] vetor, OrdenacaoDados ordenacao) {
+		numeroAtribuicoes = 0;
+		numeroComparacoes = 0;
+
 		int[] vetorAOrdenar = new int[vetor.length];
 
 		System.arraycopy(vetor, 0, vetorAOrdenar, 0, vetor.length);
@@ -30,13 +33,13 @@ public class SelectionSort {
 
 	private static int[] SortAsc(int[] vetor) {
 		int i, j, index, temp;
-		
+
 		System.out.println("Ordenando vetor. Aguarde.");
 
 		for (i = 0; i < vetor.length - 1; i++) {
 			index = i;
 			numeroAtribuicoes++;
-			
+
 			if (i % 100000 == 0) {
 				System.out.println("Ainda ordenando...");
 			}
@@ -66,13 +69,13 @@ public class SelectionSort {
 
 	private static void SortDesc(int[] vetor) {
 		int i, j, index, temp;
-		
+
 		System.out.println("Ordenando vetor. Aguarde.");
 
 		for (i = 0; i < vetor.length - 1; i++) {
 			index = i;
 			numeroAtribuicoes++;
-			
+
 			if (i % 100000 == 0) {
 				System.out.println("Ainda ordenando...");
 			}

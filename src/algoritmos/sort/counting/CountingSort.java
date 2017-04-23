@@ -8,6 +8,9 @@ public class CountingSort {
 	private static long numeroAtribuicoes = 0;
 	
 	public void ChamaCountingSort(int[] array, OrdenacaoDados ordenacao) {
+		numeroAtribuicoes = 0;
+		numeroComparacoes = 0;
+		
 		long tempoInicial = System.currentTimeMillis();
 		int[] vetorAOrdenar = new int[array.length], counts, resultadoMaxMin;
 		int max, min;
@@ -121,10 +124,6 @@ public class CountingSort {
 			aux[temp] = array[i];
 			counts[array[i] - min]--;
 			
-			if (i % 100000 == 0) {
-				System.out.println("Ainda ordenando...");
-			}
-			
 			numeroAtribuicoes += 3;
 			numeroComparacoes++;
 		}
@@ -147,12 +146,8 @@ public class CountingSort {
 		
 		for (int i = 0; i < array.length; i++) {
 			int temp = Math.abs(counts[array[i] - min] - array.length);
-			aux[temp] = array[i];
+			aux[(int) temp] = array[i];
 			counts[array[i] - min]--;
-			
-			if (i % 100000 == 0) {
-				System.out.println("Ainda ordenando...");
-			}
 			
 			numeroAtribuicoes += 3;
 			numeroComparacoes++;

@@ -4,10 +4,13 @@ import algoritmos.dados.OrdenacaoDados;
 import auxiliar.Imprimir;
 
 public class InsertionSort {
-	private static long numeroComparacoes = 0;
-	private static long numeroAtribuicoes = 0;
+	private static long numeroComparacoes;
+	private static long numeroAtribuicoes;
 
 	public void ChamaInsertionSort(int[] vetor, OrdenacaoDados ordenacao) {
+		numeroAtribuicoes = 0;
+		numeroComparacoes = 0;
+		
 		int []vetorAOrdenar = new int[vetor.length];
 		
 		System.arraycopy(vetor, 0, vetorAOrdenar, 0, vetor.length);
@@ -51,6 +54,8 @@ public class InsertionSort {
 				numeroComparacoes += 2;
 				numeroAtribuicoes += 2;
 			}
+			
+			numeroComparacoes += 2;
 
 			vetor[j] = chave;
 			numeroAtribuicoes++;

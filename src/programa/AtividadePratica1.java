@@ -1,7 +1,5 @@
 package programa;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import algoritmos.dados.OrdenacaoDados;
@@ -12,7 +10,6 @@ import algoritmos.sort.merge.MergeSort;
 import algoritmos.sort.quick.QuickSort;
 import algoritmos.sort.selection.SelectionSort;
 import auxiliar.GerarVetor;
-import auxiliar.Imprimir;
 
 public class AtividadePratica1 {
 
@@ -57,7 +54,7 @@ public class AtividadePratica1 {
 
 			switch (nomeSort) {
 			case "insertion":
-				ordenacaoDados = new OrdenacaoDados("Selection Sort");
+				ordenacaoDados = new OrdenacaoDados("Insertion Sort");
 				insercao = new InsertionSort();
 
 				ordenacaoDados.setElementos(Integer.parseInt(consultaTokens[1]));
@@ -67,7 +64,7 @@ public class AtividadePratica1 {
 
 				if (gerarNovoVetor != 'n')
 					vetorAOrdenar = gerarVetor.gerarVetorAleatorio(ordenacaoDados);
-
+				
 				insercao.ChamaInsertionSort(vetorAOrdenar, ordenacaoDados);
 				break;
 			case "selection":
@@ -146,7 +143,7 @@ public class AtividadePratica1 {
 				break;
 			}
 
-			System.out.println("Deseja repetir? Digite Y para sim, qualquer outro para não: ");
+			System.out.print("Deseja repetir? Digite Y para sim, qualquer outro para não: ");
 			repetirFlag = scan.next().charAt(0);
 
 			scan.nextLine();

@@ -10,6 +10,9 @@ public class HeapSort {
 	private static long numeroAtribuicoes = 0;
 
 	public void ChamaHeapSort(int[] array, OrdenacaoDados ordenacao) {
+		numeroAtribuicoes = 0;
+		numeroComparacoes = 0;
+		
 		long tempoInicial = System.currentTimeMillis();
 		int[] vetorAOrdenar = new int[array.length];
 		

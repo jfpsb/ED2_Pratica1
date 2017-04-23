@@ -10,10 +10,15 @@ public class QuickSort {
 	private static long numeroAtribuicoes = 0;
 
 	public void chamaQuickSort(int[] vetor, OrdenacaoDados ordenacao) {
+		numeroAtribuicoes = 0;
+		numeroComparacoes = 0;
+		
 		// check for empty or null array
 		if (vetor == null || vetor.length == 0) {
 			return;
 		}
+		
+		System.out.println("Ordenando vetor. Aguarde.");
 
 		number = vetor.length;
 		this.numbers = new int[vetor.length];
@@ -34,8 +39,6 @@ public class QuickSort {
 
 	private void quicksort(int low, int high, OrdenacaoDados ordenacao) {
 		int i = low, j = high, pivot;
-		
-		System.out.println("Ordenando vetor. Aguarde.");
 
 		if (ordenacao.getPivo() == 'p') {
 			pivot = numbers[low];
@@ -92,6 +95,7 @@ public class QuickSort {
 				numeroAtribuicoes += 2;
 			}
 		}
+		
 		// Recursion
 		if (low < j) {
 			numeroComparacoes++;

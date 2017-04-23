@@ -1,43 +1,52 @@
 package auxiliar;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import algoritmos.dados.OrdenacaoDados;
 
 public class GerarVetor {
 	public <T> int[] gerarVetorAleatorio(OrdenacaoDados ordenacao) {
-		Random random = new Random();
 		int[] vetor = new int[ordenacao.getElementos()];
+		ArrayList<Integer> lista;
 
 		double tamanhoPorcentagem = ordenacao.getElementos() * (ordenacao.getPorcentagem() / 100);
 
-		int aux = random.nextInt(10);
+		// Gera vetor totalmente desordenado sem repetições
+		if (tamanhoPorcentagem == 0) {
+			lista = new ArrayList<Integer>();
 
-		if (tamanhoPorcentagem == ordenacao.getElementos()) {
 			for (int i = 0; i < ordenacao.getElementos(); i++) {
-				vetor[i] = aux + i;
+				lista.add(i);
+			}
+
+			Collections.shuffle(lista);
+
+			for (int i = 0; i < ordenacao.getElementos(); i++) {
+				vetor[ i] = lista.get(i);
+			}
+		} else if (tamanhoPorcentagem == ordenacao.getElementos()) {
+			// Gera vetor totalmente ordenado sem repetições
+			for (int i = 0; i < ordenacao.getElementos(); i++) {
+				vetor[i] = i;
 			}
 		} else {
-			if (ordenacao.getInicioFimOrdenados() == 'i') {
-				// Elementos até o valor da porcentagem informada são ordenados
-				// no início
-				for (int i = 0; i < Math.floor(tamanhoPorcentagem); i++) {
-					vetor[i] = aux + i;
-				}
+			// Gera vetor inicialmente ordenado baseado em porcentagem informada pelo usuário
+			lista = new ArrayList<Integer>();
+			double pisoPorcentagem = Math.floor(tamanhoPorcentagem);
 
-				for (double i = Math.floor(tamanhoPorcentagem); i < ordenacao.getElementos(); i++) {
-					vetor[(int) i] = random.nextInt(2500);
-				}
-			} else {
-				// Elementos até o valor da porcentagem informada são ordenados
-				// no final
-				for (int i = 0; i < tamanhoPorcentagem; i++) {
-					vetor[i] = random.nextInt(2500);
-				}
+			for (int i = 0; i < pisoPorcentagem; i++) {
+				vetor[i] = i;
+			}
 
-				for (double i = Math.floor(tamanhoPorcentagem); i < ordenacao.getElementos(); i++) {
-					vetor[(int) i] = (int) (aux + i);
-				}
+			for (int i = (int) pisoPorcentagem; i < ordenacao.getElementos(); i++) {
+				lista.add(i);
+			}
+
+			Collections.shuffle(lista);
+
+			for (int i = (int) pisoPorcentagem; i < ordenacao.getElementos(); i++) {
+				vetor[i] = lista.get((int) (i - pisoPorcentagem));
 			}
 		}
 

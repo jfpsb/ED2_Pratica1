@@ -11,6 +11,9 @@ public class MergeSort {
 	private int number;
 
 	public void chamaMergeSort(int[] vetor, OrdenacaoDados ordenacao) {
+		numeroAtribuicoes = 0;
+		numeroComparacoes = 0;
+
 		number = vetor.length;
 		this.helper = new int[number];
 		this.numbers = new int[vetor.length];
@@ -18,6 +21,8 @@ public class MergeSort {
 		System.arraycopy(vetor, 0, numbers, 0, vetor.length);
 
 		long tempoInicial = System.currentTimeMillis();
+
+		System.out.println("Ordenando vetor. Aguarde.");
 
 		mergesort(0, number - 1, ordenacao);
 
@@ -31,11 +36,11 @@ public class MergeSort {
 
 	private void mergesort(int low, int high, OrdenacaoDados ordenacao) {
 		// check if low is smaller than high, if not then the array is sorted
-		System.out.println("Ordenando vetor. Aguarde.");
 		if (low < high) {
 			numeroComparacoes++;
 			// Get the index of the element which is in the middle
 			int middle = low + (high - low) / 2;
+			numeroAtribuicoes++;
 			// Sort the left side of the array
 			mergesort(low, middle, ordenacao);
 			// Sort the right side of the array
@@ -50,7 +55,8 @@ public class MergeSort {
 		// Copy both parts into the helper array
 		for (int i = low; i <= high; i++) {
 			numeroComparacoes++;
-			helper[i] = numbers[i];
+			numeroAtribuicoes++;
+			helper[(int) i] = numbers[(int) i];
 		}
 
 		numeroComparacoes++;
@@ -65,20 +71,24 @@ public class MergeSort {
 			if (ordenacao.getOrdem() == 'c') {
 				if (helper[i] <= helper[j]) {
 					numeroComparacoes++;
+					numeroAtribuicoes += 2;
 					numbers[k] = helper[i];
 					i++;
 				} else {
 					numbers[k] = helper[j];
 					j++;
+					numeroAtribuicoes += 2;
 				}
 			} else {
 				if (helper[i] >= helper[j]) {
 					numeroComparacoes++;
 					numbers[k] = helper[i];
 					i++;
+					numeroAtribuicoes += 2;
 				} else {
 					numbers[k] = helper[j];
 					j++;
+					numeroAtribuicoes += 2;
 				}
 			}
 			k++;
@@ -89,6 +99,7 @@ public class MergeSort {
 			numbers[k] = helper[i];
 			k++;
 			i++;
+			numeroAtribuicoes += 3;
 		}
 
 	}
